@@ -24,3 +24,46 @@ def is_sentence(text):
         return False
 
     return True
+
+# GEt sentence
+def get_sentence():
+    while True:
+        sentence = input("Enter a sentence: ").strip()
+        if is_sentence(sentence):
+            return sentence
+        else:
+            print("Error: Sentence must start with a capital letter, end with '.', '?', or '!', and contain at least one word.")
+
+# Function 2: Calculate word frequencies
+def calculate_frequencies(sentence):
+    words_list = []
+    frequencies = []
+
+    # Remove ending punctuation
+    sentence_clean = sentence[:-1]
+    words = sentence_clean.split()
+
+    for word in words:
+        word = word.lower()  # make case-insensitive
+        if word in words_list:
+            index = words_list.index(word)
+            frequencies[index] += 1
+        else:
+            words_list.append(word)
+            frequencies.append(1)
+    return words_list, frequencies
+
+# Function 3: Print word frequencies
+def print_frequencies(words, frequencies):
+    print("\nWord Frequencies:")
+    for i in range(len(words)):
+        print(f"{words[i]}: {frequencies[i]}")
+
+# Main function to control flow
+def main():
+    sentence = get_sentence()
+    words, frequencies = calculate_frequencies(sentence)
+    print_frequencies(words, frequencies)
+
+if __name__ == "__main__":
+    main()

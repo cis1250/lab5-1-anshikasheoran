@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-
-# Word frequency exercise
-# TODO: (Read detailed instructions in the Readme file)
-
 import re
 
 #This is a function that checks if a text qualifies as a sentence. You do not need to modify this!
@@ -25,7 +20,7 @@ def is_sentence(text):
 
     return True
 
-# GEt sentence
+# Get sentence
 def get_sentence():
     while True:
         sentence = input("Enter a sentence: ").strip()
@@ -34,7 +29,7 @@ def get_sentence():
         else:
             print("Error: Sentence must start with a capital letter, end with '.', '?', or '!', and contain at least one word.")
 
-# Function 2: Calculate word frequencies
+# Calculate word frequencies
 def calculate_frequencies(sentence):
     words_list = []
     frequencies = []
@@ -44,7 +39,7 @@ def calculate_frequencies(sentence):
     words = sentence_clean.split()
 
     for word in words:
-        word = word.lower()  # make case-insensitive
+        word = word.lower()  
         if word in words_list:
             index = words_list.index(word)
             frequencies[index] += 1
@@ -53,17 +48,13 @@ def calculate_frequencies(sentence):
             frequencies.append(1)
     return words_list, frequencies
 
-# Function 3: Print word frequencies
+# Print word frequencies
 def print_frequencies(words, frequencies):
     print("\nWord Frequencies:")
     for i in range(len(words)):
         print(f"{words[i]}: {frequencies[i]}")
 
 # Main function to control flow
-def main():
     sentence = get_sentence()
     words, frequencies = calculate_frequencies(sentence)
     print_frequencies(words, frequencies)
-
-if __name__ == "__main__":
-    main()

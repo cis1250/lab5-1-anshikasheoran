@@ -1,4 +1,5 @@
 import re
+import string
 
 #This is a function that checks if a text qualifies as a sentence. You do not need to modify this!
 def is_sentence(text):
@@ -20,7 +21,6 @@ def is_sentence(text):
 
     return True
 
-# Get sentence
 def get_sentence():
     while True:
         sentence = input("Enter a sentence: ").strip()
@@ -29,36 +29,50 @@ def get_sentence():
         else:
             print("Error: Sentence must start with a capital letter, end with '.', '?', or '!', and contain at least one word.")
 
-# Calculate word frequencies
 def calculate_frequencies(sentence):
     words_list = []
     frequencies = []
 
-    # Remove ending punctuation
-    sentence_clean = sentence[:-1]
-    words = sentence_clean.split()
-
+    words = sentence.split()
     for word in words:
-        word = word.lower()  
-        if word in words_list:
-            index = words_list.index(word)
-            frequencies[index] += 1
-        else:
-            words_list.append(word)
-            frequencies.append(1)
+        # Remove punctuation from start and end of each word
+        word_clean = word.strip(string.punctuation).lower()
+        if word_clean:  # skip empty words
+            if word_clean in words_list:
+                index = words_list.index(word_clean)
+                frequencies[index] += 1
+            else:
+                words_list.append(word_clean)
+                frequencies.append(1)
     return words_list, frequencies
 
-# Print word frequencies
+def count_punctuation(sentence):
+    punctuation_count = {}
+    for char in sentence:
+        if char in string.punctuation:
+            if char in punctuation_count:
+                punctuation_count[char] += 1
+            else:
+                punctuation_count[char] = 1
+    return punctuation_count
+
 def print_frequencies(words, frequencies):
     print("\nWord Frequencies:")
     for i in range(len(words)):
         print(f"{words[i]}: {frequencies[i]}")
-        
-# Main function to control flow
+
+def print_punctuation(punctuation_count):
+    print("\nPunctuation Counts:")
+    for punc, count in punctuation_count.items():
+        print(f"{punc}: {count}")
+
 def main():
     sentence = get_sentence()
     words, frequencies = calculate_frequencies(sentence)
+    punctuation_count = count_punctuation(sentence)
+
     print_frequencies(words, frequencies)
+    print_punctuation(punctuation_count)
 
 if __name__ == "__main__":
     main()

@@ -53,7 +53,12 @@ def print_frequencies(words, frequencies):
     print("\nWord Frequencies:")
     for i in range(len(words)):
         print(f"{words[i]}: {frequencies[i]}")
+        
 # Main function to control flow
+def main():
     sentence = get_sentence()
     words, frequencies = calculate_frequencies(sentence)
     print_frequencies(words, frequencies)
+
+if __name__ == "__main__":
+    main()
